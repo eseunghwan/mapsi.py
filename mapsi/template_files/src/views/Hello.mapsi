@@ -1,0 +1,19 @@
+
+<template>
+    <div>
+        <input type="text" :model="name" :input="update_name">
+        <p>{name}</p>
+    </div>
+</template>
+
+<python>
+class Component:
+    def data():
+        return {
+            "name": "eseunghwan"
+        }
+
+    @Component.method
+    def update_name(self, event):
+        self.name = event.target.value
+</python>

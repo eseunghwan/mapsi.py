@@ -1,0 +1,12 @@
+
+router-link {
+    display: inline-block;
+}
+
+router-view {
+    display: block;
+}
+
+.mapsi-comp {
+    display: block;
+}

@@ -1,0 +1,14 @@
+
+<template>
+    <div>
+        <h1>{ message }</h1>
+    </div>
+</template>
+
+<python>
+class Component:
+    def parameter():
+        return {
+            "message": str
+        }
+</python>

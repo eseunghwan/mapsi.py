@@ -1,0 +1,7 @@
+
+<template>
+    <div>
+        <img src="./assets/mapsi_big.png" style="width:500px;">
+        <HelloWorld message="Mapsi App installed!" />
+    </div>
+</template>
