@@ -1,7 +1,7 @@
 
 <hr>
 <p align="center">
-<img src="https://github.com/eseunghwan/mapsi.py/blob/master/mapsi/assets/mapsi_big.png?raw=true" width=250 />
+<img src="https://github.com/eseunghwan/mapsi.py/blob/master/mapsi/assets/mapsi_big.png?raw=true" width=400 />
 <br>
 MVVM UI Framework for Python and Brython
 <br>
