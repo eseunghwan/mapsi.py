@@ -5,11 +5,25 @@ from . import __path__ as mapsi_path
 
 template_requires = ["public", "src", "App.mapsi", "main.py"]
 def init_mapsi(dest:str):
+    # create dest if not exists
+    if not os.path.exists(dest):
+        os.mkdir(dest)
+
+    # check if project already exists
     if set(template_requires).issubset(os.listdir(dest)):
         raise RuntimeError("project files already exist!")
 
     # copy template files
-    shutil.copytree(os.path.join(mapsi_path[0], "template_files"), dest)
+    template_source = os.path.join(mapsi_path[0], "template_files")
+    for t_file in os.listdir(template_source):
+        if t_file in ("__pycache__"):
+            continue
+
+        t_path = os.path.join(template_source, t_file)
+        if os.path.isdir(t_path):
+            shutil.copytree(t_path, os.path.join(dest, t_file))
+        else:
+            shutil.copyfile(t_path, os.path.join(dest, t_file))
 
 def build_mapsi(dest:str, make_dist:bool):
     from .core import Parser
@@ -101,9 +115,6 @@ def main():
     if job == "init":
         if not os.path.isabs(dest):
             dest = os.path.join(os.getcwd(), dest)
-
-        if not os.path.exists(dest):
-            os.mkdir(dest)
 
         init_mapsi(dest)
 

@@ -45,6 +45,11 @@ setup(
     install_requires=requires,
     setup_requires=requires,
     packages=["mapsi", "mapsi/assets", "mapsi/build_files", "mapsi/template_files"],
+    package_data={
+        "": [
+            "**/*.*"
+        ]
+    },
     url="https://github.com/eseunghwan/mapsipy",
     zip_safe=False
 )
