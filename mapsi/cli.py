@@ -3,15 +3,13 @@ import os, argparse, shutil
 from . import __path__ as mapsi_path
 
 
+template_requires = ["public", "src", "App.mapsi", "main.py"]
 def init_mapsi(dest:str):
-    if set(["public", "src", "App.mapsi", "main.py"]).issubset(os.listdir(dest)):
+    if set(template_requires).issubset(os.listdir(dest)):
         raise RuntimeError("project files already exist!")
 
     # copy template files
-    os.chdir(os.path.dirname(dest))
-    shutil.rmtree(dest)
     shutil.copytree(os.path.join(mapsi_path[0], "template_files"), dest)
-    os.chdir(dest)
 
 def build_mapsi(dest:str, make_dist:bool):
     from .core import Parser
@@ -21,7 +19,7 @@ def build_mapsi(dest:str, make_dist:bool):
     source = os.getcwd()
 
     # check files exist
-    if not set(["public", "src", "App.mapsi", "main.py"]).issubset(os.listdir(source)):
+    if not set(template_requires).issubset(os.listdir(source)):
         raise RuntimeError("build can use in mapsi project directory!")
 
     # copy public files

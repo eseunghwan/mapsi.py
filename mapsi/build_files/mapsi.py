@@ -50,7 +50,7 @@ webcomponent.define("router-link", RouterLink)
 webcomponent.define("router-view", RouterView)
 
 
-## Component
+## DOM/Component
 event_attrs = [ "click", "doubleClick", "change", "input" ]
 value_attrs = [ "model" ]
 value_attrs_to_change = {
