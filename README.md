@@ -44,5 +44,5 @@ mapsipy-cli build [dest]
 <br><br>
 
 # TODO
-- classified virtual dom []
-- classified viewmodel []
+[ ] classified virtual dom<br>
+[ ] classified viewmodel
