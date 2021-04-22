@@ -47,7 +47,11 @@ setup(
     packages=["mapsi", "mapsi/assets", "mapsi/build_files", "mapsi/template_files"],
     package_data={
         "": [
-            "**/*.*"
+            "**/*.*",
+            "**/**/*.*",
+            "**/**/**/*.*",
+            "**/**/**/**/*.*",
+            "**/**/**/**/**/*.*"
         ]
     },
     url="https://github.com/eseunghwan/mapsipy",
