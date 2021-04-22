@@ -56,6 +56,9 @@ class Component:
 
 
 value_attrs = [ "model" ]
+cond_attrs = [ "if", "elif", "else" ]
+ConditionStore = { "if": "", "elif": [] }
+loop_attrs = [ "for" ]
 class Parser:
     @staticmethod
     def load_mapsi(mapsi_file:str) -> Component:
@@ -133,9 +136,16 @@ class {name}(Component):
         if template == "":
             return template
 
+        for key in ConditionStore.keys():
+            ConditionStore[key] = None
+
         dom = fromstring(template)
         dom = Parser.change_dom_for_template(dom)
-        return tostring(dom).decode("utf-8")
+        return tostring(dom).decode("utf-8").replace(
+            "&lt;", "<"
+        ).replace(
+            "&gt;", ">"
+        )
 
     @staticmethod
     def change_dom_for_template(dom):
@@ -144,15 +154,71 @@ class {name}(Component):
                 dom.text = dom.text.replace("{ ", "{").replace(" }", "}")
 
         attribs = deepcopy(dom.attrib)
-        for key, value in attribs.items():
-            if key.startswith(":") and key[1:] in value_attrs:
-                if not value.startswith("{"):
-                    value = "{" + value
-                
-                if not value.startswith("}"):
-                    value = value + "}"
 
-                dom.attrib[key] = value
+        for key, value in attribs.items():
+            if key.startswith(":"):
+                r_key = key[1:]
+                if r_key in value_attrs:
+                    if not value.startswith("{"):
+                        value = "{" + value
+                    
+                    if not value.startswith("}"):
+                        value = value + "}"
+
+                    dom.attrib[key] = value
+                elif r_key in cond_attrs:
+                    conds = []
+                    if r_key == "if":
+                        ConditionStore["if"] = value
+                        conds.append(value)
+                    elif r_key == "elif":
+                        if ConditionStore["if"] == None:
+                            raise RuntimeError("elif cannot be used before if")
+
+                        dom.attrib.pop(":elif")
+                        if ConditionStore["elif"] == None:
+                            ConditionStore["elif"] = []
+
+                        ConditionStore["elif"].append(value)
+
+                        if "not" in ConditionStore["if"]:
+                            conds.append(" ".join([ item.strip() for item in ConditionStore["if"].split("not") ]))
+                        else:
+                            conds.append("not " + ConditionStore["if"])
+
+                        for ei_cond in ConditionStore["elif"]:
+                            if not ei_cond == ConditionStore["elif"][-1]:
+                                if "not" in ei_cond:
+                                    ei_cond = " ".join([ item.strip() for item in ei_cond.split("not") ])
+                                else:
+                                    ei_cond = "not " + ei_cond
+
+                            conds.append(ei_cond)
+                    elif r_key == "else":
+                        if ConditionStore["if"] == None:
+                            raise RuntimeError("else cannot be used before if")
+
+                        dom.attrib.pop(":else")
+
+                        if "not" in ConditionStore["if"]:
+                            conds.append(" ".join([ item.strip() for item in ConditionStore["if"].split("not") ]))
+                        else:
+                            conds.append("not " + ConditionStore["if"])
+
+                        if ConditionStore["elif"] is not None:
+                            for ei_cond in ConditionStore["elif"]:
+                                if "not" in ei_cond:
+                                    ei_cond = " ".join([ item.strip() for item in ei_cond.split("not") ])
+                                else:
+                                    ei_cond = "not " + ei_cond
+
+                                conds.append(ei_cond)
+
+                    dom.attrib[":if"] = " and ".join(conds)
+                elif r_key in loop_attrs:
+                    for child in dom.getchildren():
+                        if not ":for" in child.attrib.keys():
+                            child.attrib[":for-item"] = None
 
         for child in dom.getchildren():
             Parser.change_dom_for_template(child)

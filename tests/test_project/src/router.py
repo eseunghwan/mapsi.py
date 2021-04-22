@@ -12,5 +12,9 @@ routes = [
     {
         "name": "Hello",
         "url": "Hello"
+    },
+    {
+        "name": "Tabular",
+        "url": "Tabular"
     }
 ]

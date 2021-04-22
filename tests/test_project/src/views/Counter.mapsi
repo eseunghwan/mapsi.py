@@ -2,6 +2,10 @@
 <template>
     <div id="app">
         <p>{count}</p>
+        <p :if="count == 0">count zero</p>
+        <p :elif="count < 10">count 1 digit</p>
+        <p :elif="count < 12">hey!</p>
+        <p :else>wow!</p>
         <button :click="count_up">+</button>
         <button :click="count_down">-</button>
     </div>
@@ -9,7 +13,7 @@
 
 <style scoped>
 button {
-    color: white;
+    color: black;
 }
 </style>
 

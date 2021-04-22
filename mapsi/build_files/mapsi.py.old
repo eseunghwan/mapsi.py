@@ -52,6 +52,7 @@ webcomponent.define("router-view", RouterView)
 
 ## DOM/Component
 event_attrs = [ "click", "doubleClick", "change", "input" ]
+cond_attrs = [ "show" ]
 value_attrs = [ "model" ]
 value_attrs_to_change = {
     "model": "value"
@@ -234,8 +235,13 @@ class Mapsi:
         comp_name = f"#comp-{name}"
         setattr(comp, "el", comp_name)
 
-        MapsiCompStyle.innerText += name + "{display: block;}"
-        # print(123456789, document.select("style")[0].innerText)
+        comp_style = {"display": "inline-block"}
+        if name == "main-app":
+            comp_style["display"] = "block"
+
+        comp_style_to_add = ";".join([f"{key}:{value}" for key, value in comp_style.items()])
+        if not comp_style_to_add:
+            MapsiCompStyle.innerText += name + "{" + comp_style_to_add + ";}"
 
         if not comp_name in Mapsi.components:
             Mapsi.components.append(comp_name)

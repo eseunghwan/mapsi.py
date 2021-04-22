@@ -10,3 +10,7 @@
     - do not remove directory anymore
 - bug fix on package install
     - template files now include
+
+## 2021.04.22
+- conditions(if, elif, else) include
+- loop(for) include

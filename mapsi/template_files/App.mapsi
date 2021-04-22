@@ -4,7 +4,8 @@
         <div style="margin-bottom:10px;">
             <router-link to="Home">home</router-link> |
             <router-link to="Counter">counter</router-link> |
-            <router-link to="Hello">hello</router-link>
+            <router-link to="Hello">hello</router-link> |
+            <router-link to="Tabular">tabular</router-link>
         </div>
         <router-view></router-view>
     </div>
