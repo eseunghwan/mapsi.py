@@ -14,3 +14,11 @@
 ## 2021.04.22
 - conditions(if, elif, else) include
 - loop(for) include
+### post1
+- change mapsi(brython) package from single file to module directory
+- delete mapsi directory when build
+### post2
+- change render order of views/components/App
+    - now components inside App render well
+- add <b>content</b> tag to component
+    - childNodes of component will be placed

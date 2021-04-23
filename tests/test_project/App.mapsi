@@ -1,13 +1,18 @@
 
 <template>
     <div id="app">
-        <div style="margin-bottom:10px;">
+        <!-- <div style="margin-bottom:10px;">
             <router-link to="Home">home</router-link> |
             <router-link to="Counter">counter</router-link> |
             <router-link to="Hello">hello</router-link> |
             <router-link to="Tabular">tabular</router-link>
         </div>
-        <router-view></router-view>
+        <router-view></router-view> -->
+        <HelloWorld message="hey!!!!!">
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+        </HelloWorld>
     </div>
 </template>
 

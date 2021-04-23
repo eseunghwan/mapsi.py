@@ -27,6 +27,9 @@ class Component:
                     f"</{comp_tag}>", f"</{dom_comp_tag}>"
                 )
 
+        if "<content></content>" in template_replaced:
+            template_replaced = template_replaced.replace("<content></content>", self.innerHTML)
+
         for p_name in self.__class__.parameter():
             setattr(self, p_name, str(self.getAttribute(p_name)))
             self.removeAttribute(p_name)
