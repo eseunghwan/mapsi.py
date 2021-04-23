@@ -32,7 +32,7 @@ class Component:
                     elif line.strip().startswith(self.el):
                         style_scoped.append(line.replace(self.el, f"{self.dom_el}>div"))
                     else:
-                        style_scoped.append(line.replace(line.strip(), f"{self.dom_el}>div>{line.strip()}"))
+                        style_scoped.append(line.replace(line.strip(), f"{self.dom_el} {line.strip()}"))
                 else:
                     style_scoped.append(line)
 

@@ -22,3 +22,6 @@
     - now components inside App render well
 - add <b>content</b> tag to component
     - childNodes of component will be placed
+### post3
+- bug fixes
+    - exclude style tags from component value formatting

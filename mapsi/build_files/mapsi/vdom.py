@@ -66,8 +66,15 @@ class VirtualDOM:
             for d_name in self.comp.current_datas:
                 format_vars[d_name] = self.comp.current_datas[d_name]
 
-        if "{" in self.virt_dom.innerText and "}" in self.virt_dom.innerText:
-            self.real_dom.innerText = self.virt_dom.innerText.format(**format_vars)
+        try:
+            innerText = self.virt_dom.firstChild.nodeValue
+            if innerText == None:
+                innerText = ""
+        except:
+            innerText = self.virt_dom.innerText
+
+        if "{" in innerText and "}" in innerText:
+            self.real_dom.innerText = innerText.format(**format_vars)
 
         for a_name in self.virt_dom.attrs:
             a_val = self.virt_dom.attrs[a_name]

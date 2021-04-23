@@ -24,6 +24,8 @@ class Component:
                 template_replaced = template_replaced.replace(
                     f"<{comp_tag} ", f"<{dom_comp_tag} "
                 ).replace(
+                    f"<{comp_tag}>", f"<{dom_comp_tag}>"
+                ).replace(
                     f"</{comp_tag}>", f"</{dom_comp_tag}>"
                 )
 
