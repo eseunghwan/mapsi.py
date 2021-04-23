@@ -87,6 +87,7 @@ def build_mapsi(dest:str, make_dist:bool):
             os.remove(py_file)
 
         # remove unnecessary files
+        shutil.rmtree(os.path.join(dest, "mapsi"))
         os.remove(os.path.join(dest, "brython_stdlib.js"))
 
         os.chdir(source)
